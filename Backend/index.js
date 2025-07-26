@@ -7,7 +7,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({ origin: "https://tasktracker12614.onrender.com" }));
 app.use(express.json());
 
 const uri = process.env.DB_URL;
@@ -175,12 +175,6 @@ async function run() {
 }
 
 run().catch(console.dir);
-
-app.use(express.static(path.join(__dirname, "../../Frontend")));
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "Frontend", "index.html"));
-});
 
 app.listen(port, () => {
   console.log(

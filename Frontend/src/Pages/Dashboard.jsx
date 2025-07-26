@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 
 const Dashboard = () => {
+  const API_URL =
+    process.env.REACT_APP_API_URL ||
+    "https://tasktracker-backend-ysn0.onrender.com";
   const [tasks, setTasks] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -49,20 +52,22 @@ const Dashboard = () => {
     });
   };
 
-  const fetchTasks = async () => {
+  const fetchTasks = async (retries = 3) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/tasks?email=${userEmail}`);
+      const response = await fetch(`${API_URL}/api/tasks?email=${userEmail}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       setTasks(sortTasks(data));
     } catch (err) {
-      console.error("Failed to fetch tasks:", err);
-      setError("Failed to load tasks. Please try again.");
-      showToast("Failed to load tasks.", "error");
+      if (retries > 0) {
+        setTimeout(() => fetchTasks(retries - 1), 5000); // Retry after 5 second
+      } else {
+        setError("Failed to load tasks after retries.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +75,7 @@ const Dashboard = () => {
 
   const addTask = async (task) => {
     try {
-      const response = await fetch("/api/tasks", {
+      const response = await fetch(`${API_URL}/api/tasks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +97,7 @@ const Dashboard = () => {
 
   const updateTask = async (id, updatedFields) => {
     try {
-      const response = await fetch(`/api/tasks/${id}`, {
+      const response = await fetch(`${API_URL}/api/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -121,9 +126,12 @@ const Dashboard = () => {
       return;
     }
     try {
-      const response = await fetch(`/api/tasks/${id}?email=${userEmail}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${API_URL}/api/tasks/${id}?email=${userEmail}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
