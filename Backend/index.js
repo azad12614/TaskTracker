@@ -183,5 +183,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`TaskTracker backend listening at http://localhost:${port}`);
+  console.log(
+    `TaskTracker backend listening at http://localhost:${port} or https://tasktracker-backend-ysn0.onrender.com`
+  );
 });
