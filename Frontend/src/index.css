@@ -1,0 +1,184 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --background-color: #1a1a1a;
+  --sub-background-color: #242424;
+  --accent-background-color: #2a2a2a;
+  --text-color: #e0e0e0;
+  --text-sub-color: #a0a0a0;
+
+  --primary-color: #e03733;
+  --secondary-color: #fc5833;
+  --accent-color: #ff9800;
+
+  --hover-color: #fc5833;
+  --second-hover-color: #ffa726;
+
+  --btn-background-color: var(--primary-color);
+  --btn-text-color: #ffffff;
+  --btn-hover-background-color: var(--hover-color);
+  --btn-hover-text-color: #ffffff;
+  --btn-border-color: var(--primary-color);
+
+  --border-color: #3a3a3a;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+
+  --font-family-primary: "Inter", sans-serif;
+  --font-family-headings: "Montserrat", sans-serif;
+  --font-family-monospace: "Fira Code", "Cascadia Code", "Consolas", monospace;
+
+  --font-size-base: 1rem;
+  --font-size-h1: 2.5rem;
+  --font-size-h2: 2rem;
+  --font-size-h3: 1.75rem;
+  --font-size-h4: 1.5rem;
+  --font-size-h5: 1.25rem;
+  --font-size-h6: 1rem;
+  --line-height-base: 1.6;
+  --line-height-heading: 1.2;
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-wide: 0.05em;
+
+  --spacing-unit: 8px;
+
+  --border-width: 1px;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+
+  --scrollbar-thumb-color: var(--primary-color);
+  --scrollbar-track-color: var(--sub-background-color);
+
+  --status-pending: #ff9800;
+  --status-completed: #4caf50;
+
+  --priority-low: #8bc34a;
+  --priority-medium: #ffc107;
+  --priority-high: #e03733;
+
+  --success: var(--status-completed);
+  --error: var(--priority-high);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+  border-radius: var(--border-radius-medium);
+  border: 3px solid var(--scrollbar-track-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  font-weight: 500;
+}
+
+a:hover {
+  color: var(--hover-color);
+  text-decoration: underline wavy;
+}
+
+a:active {
+  color: var(--second-hover-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-headings);
+  color: var(--text-color);
+  margin-top: calc(2 * var(--spacing-unit));
+  margin-bottom: var(--spacing-unit);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+}
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: 600;
+}
+h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 600;
+}
+h4 {
+  font-size: var(--font-size-h4);
+  font-weight: 500;
+}
+h5 {
+  font-size: var(--font-size-h5);
+  font-weight: 500;
+}
+h6 {
+  font-size: var(--font-size-h6);
+  font-weight: 500;
+}
+
+p {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color);
+  margin-bottom: var(--spacing-unit);
+}
+
+.sub-text {
+  font-size: calc(0.875 * var(--font-size-base));
+  color: var(--text-sub-color);
+}
+
+.btn {
+  padding: calc(1.5 * var(--spacing-unit)) calc(3 * var(--spacing-unit));
+  border-radius: var(--border-radius-medium);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px var(--shadow-color);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.5), 0 2px 4px var(--shadow-color);
+}
