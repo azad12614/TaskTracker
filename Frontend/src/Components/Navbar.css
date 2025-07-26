@@ -60,6 +60,7 @@
   display: flex;
   gap: calc(1.5 * var(--spacing-unit));
   align-items: center;
+  justify-content: center;
   margin: 0;
   padding: 0;
 }
@@ -172,6 +173,7 @@
   .navbar-links li button {
     display: block;
     padding: var(--spacing-unit);
+    justify-self: center;
   }
 
   .navbar-links:not(.active) {

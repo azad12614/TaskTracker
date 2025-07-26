@@ -15,23 +15,18 @@ import "./index.css";
 import "./App.css";
 
 const ProtectedRoute = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
 
   useEffect(() => {
-    const checkAuthStatus = () => {
-      const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-      setIsLoggedIn(loggedIn);
-      setIsCheckingAuth(false);
+    const handleStorageChange = () => {
+      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
     };
 
-    checkAuthStatus();
+    window.addEventListener("storage", handleStorageChange);
 
-    window.addEventListener("storage", checkAuthStatus);
-
-    return () => {
-      window.removeEventListener("storage", checkAuthStatus);
-    };
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   return isLoggedIn ? children : <Navigate to="/login" replace />;

@@ -24,11 +24,11 @@ const Login = () => {
     }
 
     localStorage.setItem("isLoggedIn", "true");
-
     localStorage.setItem("userEmail", email);
 
     showToast("Login successful!", "success");
     navigate("/dashboard");
+
     window.location.reload();
   };
 

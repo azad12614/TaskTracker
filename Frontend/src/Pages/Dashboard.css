@@ -92,6 +92,7 @@
 .form-actions {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: var(--spacing-unit);
   margin-top: calc(3 * var(--spacing-unit));
 }
@@ -123,6 +124,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 300px;
 }
 
 .task-card:hover {
@@ -186,28 +188,33 @@
   display: flex;
   gap: var(--spacing-unit);
   margin-top: var(--spacing-unit);
+  width: 100%;
 }
 
-.btn-edit {
+.task-actions button {
+  flex: 1;
+}
+
+.task-actions .btn-edit {
   background-color: var(--primary-color);
   color: var(--btn-text-color);
   border: var(--border-width) solid var(--primary-color);
 }
 
-.btn-edit:hover {
+.task-actions .btn-edit:hover {
   background-color: transparent;
   border-color: var(--hover-color);
   transform: translateY(-2px);
   box-shadow: 0 6px 15px var(--shadow-color);
 }
 
-.btn-delete {
+.task-actions .btn-delete {
   background-color: transparent;
   color: var(--primary-color);
   border: var(--border-width) solid var(--primary-color);
 }
 
-.btn-delete:hover {
+.task-actions .btn-delete:hover {
   background-color: var(--hover-color);
   color: var(--btn-text-color);
   transform: translateY(-2px);
