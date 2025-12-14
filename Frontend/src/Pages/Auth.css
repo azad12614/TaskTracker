@@ -1,0 +1,242 @@
+@keyframes reveal-in {
+  0% {
+    transform: translate(0, 0) rotate(55deg);
+    border-bottom-right-radius: 0%;
+  }
+  40% {
+    border-bottom-right-radius: 40%;
+  }
+  70% {
+    border-bottom-right-radius: 60%;
+  }
+  100% {
+    transform: translate(140%, 140%) rotate(55deg);
+    border-bottom-right-radius: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes reveal-up {
+  0% {
+    transform: translate(0, 0) rotate(55deg);
+    border-top-left-radius: 0%;
+  }
+  40% {
+    border-top-left-radius: 40%;
+  }
+  70% {
+    border-top-left-radius: 60%;
+  }
+  100% {
+    transform: translate(-140%, -140%) rotate(55deg);
+    border-top-left-radius: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes showContent {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.Auth-Contrainer {
+  margin: 0;
+  padding: 0;
+  padding-top: calc(10 * var(--spacing-unit));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: calc(100vh - 3rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.RevealLayer {
+  position: absolute;
+  inset: -30%;
+  width: 180%;
+  height: 180%;
+  background: var(--primary-color);
+  transform: rotate(55deg);
+  z-index: 100;
+  animation-duration: 1.2s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+}
+
+.reveal-in {
+  animation-name: reveal-in;
+}
+.reveal-up {
+  animation-name: reveal-up;
+}
+
+.RevealLayer {
+  animation-fill-mode: forwards;
+}
+
+.Form {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+.Show {
+  animation: showContent 0.65s ease forwards;
+  pointer-events: auto;
+}
+
+.Sign-in,
+.Sign-up {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Sign-in > h1,
+.Sign-up > h1 {
+  font-family: var(--font-family-headings);
+  font-size: 2rem;
+  color: var(--primary-color);
+  padding: 0;
+  margin: 0;
+}
+
+.Sign-in > p,
+.Sign-up > p {
+  font-family: var(--font-family-primary);
+  font-size: 0.75rem;
+  color: var(--text-sub-color);
+  padding: 0;
+  margin: 0;
+}
+
+.Form-in,
+.Form-up {
+  display: flex;
+  flex-direction: column;
+  gap: calc(0.5 * var(--spacing-unit));
+  margin-inline: auto;
+  text-align: center;
+}
+
+.Form-in > div,
+.Form-up > div {
+  position: relative;
+  width: 20rem;
+  padding-top: calc(1.25 * var(--spacing-unit));
+}
+
+.Auth-Contrainer input {
+  padding: 0.75rem 1rem;
+  color: var(--primary-color);
+  background: transparent;
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-family: var(--font-family-monospace);
+  font-size: calc(1.75 * var(--spacing-unit));
+  width: 20rem;
+}
+
+.Auth-Contrainer input::placeholder {
+  color: var(--text-color);
+}
+
+.Auth-Contrainer label {
+  position: absolute;
+  top: 0.1rem;
+  left: 1rem;
+  padding: 0rem 0.5rem;
+  border-radius: 10px;
+  color: white;
+  background: black;
+  font-size: calc(1.5 * var(--spacing-unit));
+  visibility: hidden;
+}
+
+.Auth-Contrainer input:focus + label,
+.Auth-Contrainer input:not(:placeholder-shown) + label {
+  visibility: visible;
+}
+
+.Auth-Contrainer input:focus::placeholder {
+  color: transparent;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 1rem;
+  top: 2rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: gray;
+  transition: color 0.2s ease;
+}
+
+.toggle-icon:hover {
+  color: var(--primary-color);
+}
+
+.Auth-Contrainer input:focus ~ .toggle-icon {
+  color: white;
+}
+
+/* .Auth-Contrainer p {
+  width: 300px;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-size: 1rem;
+  color: var(--text-sub-color);
+  text-decoration: 1px underline dashed gray;
+  padding: 0 auto;
+  margin: 0;
+} */
+
+.Auth-Contrainer .error {
+  color: var(--error);
+  font-size: 0.75rem;
+}
+
+.account-text {
+  text-decoration: none !important;
+  font-family: var(--font-family-primary);
+  font-size: 1rem;
+  color: var(--text-sub-color);
+  padding: 0.5rem;
+  margin: 0;
+}
+
+.account-text > span {
+  border: none;
+  background: transparent;
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: 1px underline dashed var(--primary-color);
+}
+
+.account-text > span:hover {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: 1px underline dashed var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .Auth-Contrainer {
+    height: calc(100vh - 2.5rem);
+  }
+}

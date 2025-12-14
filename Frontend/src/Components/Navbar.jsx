@@ -1,42 +1,22 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { React, useEffect, useState } from "react";
 import logo from "../assets/logo.png";
+import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkLoginStatus = () => {
-      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-    };
-
-    checkLoginStatus();
-
-    window.addEventListener("storage", checkLoginStatus);
-
-    return () => {
-      window.removeEventListener("storage", checkLoginStatus);
-    };
-  }, []);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userEmail");
-    setIsLoggedIn(false);
-    showToast("Logged out successfully!", "success");
-    navigate("/login");
+    logout();
+    navigate("/");
     setMenuOpen(false);
   };
 
-  const showToast = (message, type = "success") => {
-    console.log(`Toast: ${message} (${type})`);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
@@ -59,23 +39,26 @@ const Navbar = () => {
           </div>
           <ul className={`navbar-links ${menuOpen ? "active" : ""}`}>
             <li>
-              <Link to="/" onClick={toggleMenu}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/dashboard" onClick={toggleMenu}>
+              <Link to="/your-tasks" onClick={toggleMenu}>
                 Dashboard
               </Link>
             </li>
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <li>
-                <button onClick={handleLogout}>Logout</button>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    toggleMenu();
+                  }}
+                  id="logbtn"
+                >
+                  Logout
+                </button>
               </li>
             ) : (
               <>
                 <li>
-                  <Link to="/login" onClick={toggleMenu}>
+                  <Link to="/auth" onClick={toggleMenu} id="logbtn">
                     Login
                   </Link>
                 </li>

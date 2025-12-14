@@ -45,6 +45,8 @@
   justify-content: center;
   gap: var(--spacing-unit);
   flex-wrap: wrap;
+  width: min(100vw, 440px);
+  margin-inline: auto;
 }
 
 .btn-primary {

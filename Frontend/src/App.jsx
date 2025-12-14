@@ -1,58 +1,47 @@
-import React, { useState, useEffect } from "react";
 import {
+  Navigate,
+  Route,
   BrowserRouter as Router,
   Routes,
-  Route,
-  Navigate,
 } from "react-router-dom";
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import Home from "./Pages/Home";
-import Dashboard from "./Pages/Dashboard";
-import Login from "./Pages/Login";
-
-import "./index.css";
 import "./App.css";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import "./index.css";
+import Auth from "./Pages/Auth";
+import Home from "./Pages/Home";
+import TaskForm from "./Pages/TaskForm";
+import TaskList from "./Pages/TaskList";
 
-const ProtectedRoute = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
-  return isLoggedIn ? children : <Navigate to="/login" replace />;
+const ProtectedRoute = ({ element }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? element : <Navigate to="/auth" replace />;
 };
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </main>
-      <Footer />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/your-tasks"
+              element={<ProtectedRoute element={<TaskList />} />}
+            />
+            <Route
+              path="/your-task"
+              element={<ProtectedRoute element={<TaskForm />} />}
+            />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
 

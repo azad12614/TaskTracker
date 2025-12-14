@@ -1,96 +1,103 @@
-# TaskTracker
+# 🚀 TaskTracker: A Full-Stack MERN Task Management Application
 
-**Track Your Life’s Tasks – Built with MERN Stack**
-A dynamic, full-stack task management app designed to help users organize and monitor their to-dos—built solo by Abdullah Al Azad and deployed via Render.
+A secure, high-performance task management solution built on the MERN stack (MongoDB, Express, React, Node.js). TaskTracker provides users with full CRUD capabilities, time-aware validation, and advanced sorting options to effectively manage their personal and professional workflows.
 
 [Live Demo](https://tasktracker12614.onrender.com/) • [GitHub Repo](https://github.com/azad12614/TaskTracker)
 
 ---
 
-## Overview
+## ✨ Core Features
 
-TaskTracker is a modern task management tool tailored for ultimate productivity—easy task creation, editing, and tracking in one clean, intuitive interface.
+### Task Management (CRUD)
 
----
+- **Creation & Editing:** Seamlessly add and update tasks with fields for detailed tracking.
+- **Comprehensive Task Schema:** Tasks are defined by seven distinct properties: `title`, `description`, `dueDate`, `time`, `status`, `priority`, and `severity`.
+- **Deletion:** Securely remove tasks, scoped only to the authenticated user.
 
-## Features
+### Security and Authentication
 
-- **Add / Edit / Delete Tasks** – Streamline your task list with real-time updates.
-- **Task Status Management** – Mark tasks as completed or pending to stay organized.
-- **User-Friendly UI** – Simple and responsive design for distraction-free task tracking.
-- **Solo Full-Stack App** – Built end-to-end with MERN technologies and deployed using Render.
+- **JWT-Based Authentication:** User sessions are secured using JSON Web Tokens (JWT).
+- **HttpOnly Cookies:** The authentication token is stored in an HttpOnly cookie, preventing client-side JavaScript access and mitigating XSS attacks.
+- **Session Management:** The token expires after **1 day** (`maxAge: 24 * 60 * 60 * 1000`).
+- **Strong Password Policy:** Registration enforces a minimum of 6 characters, and includes checks for at least one uppercase letter, one lowercase letter, one number, and one special character.
 
----
+### Advanced Functionality
 
-## Tech Stack
-
-| Frontend        | Backend                | Hosting |
-| --------------- | ---------------------- | ------- |
-| React.js (Vite) | Node.js + Express.js   | Render  |
-| CSS (vanilla)   | RESTful API            |         |
-| JavaScript      | MongoDB (Mongoose ORM) |         |
+- **Time-Aware Validation:** Server-side validation ensures `dueDate` and `time` are in the correct formats (`YYYY-MM-DD` and `HH:MM`) and, critically, ensures tasks cannot be created or edited for a time that has already passed ("Please try to forget the Past!").
+- **Dynamic Sorting:** Tasks can be sorted by four primary fields (`priority`, `severity`, `status`, `dueDate`). The sorting logic includes intelligent tie-breaking to maintain consistent organization.
 
 ---
 
-## Project Structure
+## 🛠️ Tech Stack
 
-```
-/frontend – React app with task UI
-/backend  – Express server, MongoDB models, RESTful routes
-```
-
-- Frontend communicates with backend via Axios and renders tasks in real-time.
-- Backend stores task data, offering CRUD endpoints and database persistence.
-
----
-
-## Why It Matters
-
-- **Solves Real Problems:** Creates an organized way to track personal and professional tasks.
-- **Showcases Full-Stack Mastery:** Demonstrates you can independently architect, develop, and deploy an end-to-end application.
-- **Cleanly Executed:** Prioritizes simplicity, responsiveness, and reliability.
+| Component      | Technology         | Dependencies (Key)                           |
+| :------------- | :----------------- | :------------------------------------------- |
+| **Frontend**   | React (Vite)       | `axios`, `react-router-dom`, `jwt-decode`    |
+| **Backend**    | Node.js / Express  | `express`, `dotenv`, `cors`, `cookie-parser` |
+| **Database**   | MongoDB / Mongoose | `mongoose`, `bcrypt`, `jsonwebtoken`         |
+| **Deployment** | Render             | N/A                                          |
 
 ---
 
-## Getting Started
+## ⚙️ Getting Started
 
 ### Prerequisites
 
-- Node.js (v14+)
-- npm
-- MongoDB (local or cloud instance)
+- Node.js (v24+)
+- npm (v11+)
+- MongoDB Atlas
 
-### Running Locally
+### 1. Backend Setup (`/backend`)
 
-#### Backend
+1.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+2.  **Configure Environment:** Create a `.env` file in the root of the backend directory:
+    ```env
+    PORT=5000
+    MONGO_URI="YOUR_MONGODB_CONNECTION_STRING"
+    JWT_SECRET="YOUR_LONG_RANDOM_SECRET"
+    VITE_CLIENT_BASE_URL="YOUR_FORNTEND_URL"
+    ```
+3.  **Run the Server:**
+    ```bash
+    npm run dev  # or node index.js
+    ```
+    The API server will run on `http://localhost:5000`.
 
-```bash
-cd backend
-npm install
-# Ensure .env includes your DB connection:
-#   MONGO_URI=your_mongo_connection_string
-npm run dev   # Starts server on default port (e.g., 5000)
-```
+### 2. Frontend Setup (`/frontend`)
 
-#### Frontend
-
-```bash
-cd frontend
-npm install
-npm start     # Starts React dev server (e.g., http://localhost:3000)
-```
-
-The frontend communicates with the backend API—start backend first to enable task functionality.
+1.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+2.  **Configure Environment:** Create a `.env` file in the root of the frontend directory.
+    ```env
+    VITE_API_BASE_URL="YOUR_BACKEND_URL"
+    # Change to your live Render URL for production.
+    ```
+3.  **Run the Client:**
+    ```bash
+    npm run dev
+    ```
+    The React application will typically run on `http://localhost:5173`.
 
 ---
 
-## Tech Keywords for ATS & Developers
+## 🔗 API Endpoints
 
-- **Frontend:** React.js, Vite, JavaScript, CSS
-- **Backend:** Node.js, Express.js, REST APIs
-- **Database & ORM:** MongoDB, Mongoose
-- **DevOps:** Render (deployment)
-- **Core Concepts:** CRUD operations, Full-Stack Development
+All Task API endpoints require an authenticated user with a valid `jwt_token` cookie.
+
+| Endpoint                    | Method   | Description                                   |
+| :-------------------------- | :------- | :-------------------------------------------- |
+| `/api/admin/register`       | `POST`   | Registers a new user.                         |
+| `/api/admin/login`          | `POST`   | Authenticates user and sets HttpOnly cookie.  |
+| `/api/admin/logout`         | `POST`   | Clears the HttpOnly cookie.                   |
+| `/api/task/add-task`        | `POST`   | Creates a new task.                           |
+| `/api/task/all-tasks`       | `GET`    | Fetches all tasks for the authenticated user. |
+| `/api/task/edit-task/:id`   | `PUT`    | Updates an existing task by ID.               |
+| `/api/task/delete-task/:id` | `DELETE` | Deletes a task by ID.                         |
 
 ---
 
@@ -98,7 +105,6 @@ The frontend communicates with the backend API—start backend first to enable t
 
 Consider adding:
 
-- **User Auth & Profiles** (JWT, OAuth)
 - **Drag-and-Drop UI** for task reordering
 - **Filtering & Search** to navigate large task lists
 - **Due Dates & Notifications** for reminders

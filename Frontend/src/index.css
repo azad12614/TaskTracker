@@ -160,6 +160,8 @@ p {
 }
 
 .btn {
+  margin-inline: auto;
+  margin-top: 0.75rem;
   padding: calc(1.5 * var(--spacing-unit)) calc(3 * var(--spacing-unit));
   border-radius: var(--border-radius-medium);
   font-size: var(--font-size-base);
@@ -170,10 +172,10 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 180px;
 }
 
-.btn:active {
+.btn:hover {
+  cursor: pointer;
   transform: translateY(0);
   box-shadow: 0 1px 2px var(--shadow-color);
 }

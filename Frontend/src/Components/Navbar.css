@@ -85,6 +85,10 @@
   background-color: var(--accent-background);
 }
 
+#logbtn {
+  color: var(--primary-color);
+}
+
 .theme-toggle-button {
   font-size: var(--font-size-h5);
   padding: calc(0.5 * var(--spacing-unit));
