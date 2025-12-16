@@ -8,9 +8,9 @@ const {
 const router = express.Router();
 const { protect } = require("../middleware/authMiddleware");
 
-router.post("/add-task", protect, addTask);
-router.put("/edit-task/:id", protect, editTask);
-router.delete("/delete-task/:id", protect, deleteTask);
-router.get("/all-tasks", protect, allTasks);
+router.post("/task", protect, addTask);
+router.put("/:id", protect, editTask);
+router.delete("/:id", protect, deleteTask);
+router.get("/", protect, allTasks);
 
 module.exports = router;

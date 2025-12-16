@@ -27,9 +27,24 @@
   --border-color: #3a3a3a;
   --shadow-color: rgba(0, 0, 0, 0.5);
 
-  --font-family-primary: "Inter", sans-serif;
-  --font-family-headings: "Montserrat", sans-serif;
-  --font-family-monospace: "Fira Code", "Cascadia Code", "Consolas", monospace;
+  /* Dedicated variables for imported fonts */
+  --font-family-abril: "Abril Fatface", serif;
+  --font-family-fira: "Fira Code", monospace;
+  --font-family-vibes: "Great Vibes", cursive;
+  --font-family-inter: "Inter", sans-serif;
+  --font-family-montserrat: "Montserrat", sans-serif;
+  --font-family-playfair: "Playfair Display", serif;
+
+  /* Application-wide usage variables */
+  --font-family-primary: var(
+    --font-family-inter
+  ); /* Used for body text, forms */
+  --font-family-headings: var(
+    --font-family-montserrat
+  ); /* Used for H1, H2, etc. */
+  --font-family-monospace: var(
+    --font-family-fira
+  ); /* Used for code blocks, terminal output */
 
   --font-size-base: 1rem;
   --font-size-h1: 2.5rem;
@@ -183,4 +198,30 @@ p {
 .btn:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.5), 0 2px 4px var(--shadow-color);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--btn-text-color);
+  border: var(--border-width) solid var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  border-color: var(--hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px var(--shadow-color);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: var(--border-width) solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--hover-color);
+  color: var(--btn-text-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px var(--shadow-color);
 }

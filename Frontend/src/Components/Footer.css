@@ -16,7 +16,8 @@
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  /* FIX: Using calc with spacing unit */
+  gap: calc(0.5 * var(--spacing-unit));
 }
 
 .copyright {
@@ -41,7 +42,7 @@
 @media (max-width: 768px) {
   .footer {
     height: 2.5rem;
-    padding: var(--padding-small);
+    padding: var(--spacing-unit);
   }
 
   .copyright,

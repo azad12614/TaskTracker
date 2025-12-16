@@ -2,15 +2,13 @@
   0% {
     transform: translate(0, 0) rotate(55deg);
     border-bottom-right-radius: 0%;
+    opacity: 1;
   }
   40% {
-    border-bottom-right-radius: 40%;
-  }
-  70% {
-    border-bottom-right-radius: 60%;
+    border-bottom-right-radius: 30%;
   }
   100% {
-    transform: translate(140%, 140%) rotate(55deg);
+    transform: translate(200%, 200%) rotate(55deg);
     border-bottom-right-radius: 100%;
     opacity: 0;
   }
@@ -20,15 +18,13 @@
   0% {
     transform: translate(0, 0) rotate(55deg);
     border-top-left-radius: 0%;
+    opacity: 1;
   }
   40% {
-    border-top-left-radius: 40%;
-  }
-  70% {
-    border-top-left-radius: 60%;
+    border-top-left-radius: 30%;
   }
   100% {
-    transform: translate(-140%, -140%) rotate(55deg);
+    transform: translate(-200%, -200%) rotate(55deg);
     border-top-left-radius: 100%;
     opacity: 0;
   }
@@ -37,15 +33,17 @@
 @keyframes showContent {
   0% {
     opacity: 0;
-    transform: scale(0.92);
+    transform: scale(0.95) translateY(20px);
+    filter: blur(5px);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
+    filter: blur(0);
   }
 }
 
-.Auth-Contrainer {
+.auth-container {
   margin: 0;
   padding: 0;
   padding-top: calc(10 * var(--spacing-unit));
@@ -56,142 +54,156 @@
   height: calc(100vh - 3rem);
   position: relative;
   overflow: hidden;
+  background-color: var(--background-color);
 }
 
-.RevealLayer {
+.reveal-layer {
   position: absolute;
-  inset: -30%;
-  width: 180%;
-  height: 180%;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
   background: var(--primary-color);
   transform: rotate(55deg);
   z-index: 100;
-  animation-duration: 1.2s;
-  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
   pointer-events: none;
+  animation-fill-mode: forwards;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
 .reveal-in {
   animation-name: reveal-in;
 }
+
 .reveal-up {
   animation-name: reveal-up;
 }
 
-.RevealLayer {
+.reveal-layer {
   animation-fill-mode: forwards;
 }
 
-.Form {
+.form {
   opacity: 0;
   pointer-events: none;
   position: absolute;
   transition: opacity 0.3s ease;
+  z-index: 10;
 }
 
-.Show {
-  animation: showContent 0.65s ease forwards;
+.show {
+  animation: showContent 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 0.2s;
   pointer-events: auto;
 }
 
-.Sign-in,
-.Sign-up {
+.sign-in,
+.sign-up {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--sub-background-color);
+  padding: calc(4 * var(--spacing-unit));
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
-.Sign-in > h1,
-.Sign-up > h1 {
+.sign-in > h1,
+.sign-up > h1 {
   font-family: var(--font-family-headings);
   font-size: 2rem;
   color: var(--primary-color);
   padding: 0;
-  margin: 0;
+  margin: 0 0 var(--spacing-unit) 0;
 }
 
-.Sign-in > p,
-.Sign-up > p {
+.sign-in > p,
+.sign-up > p {
   font-family: var(--font-family-primary);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: var(--text-sub-color);
-  padding: 0;
-  margin: 0;
+  margin: 0 0 calc(2 * var(--spacing-unit)) 0;
 }
 
-.Form-in,
-.Form-up {
+.form-in,
+.form-up {
   display: flex;
   flex-direction: column;
-  gap: calc(0.5 * var(--spacing-unit));
+  gap: calc(1.5 * var(--spacing-unit));
   margin-inline: auto;
   text-align: center;
 }
 
-.Form-in > div,
-.Form-up > div {
+.form-in > div,
+.form-up > div {
   position: relative;
   width: 20rem;
-  padding-top: calc(1.25 * var(--spacing-unit));
 }
 
-.Auth-Contrainer input {
+.auth-container input {
+  width: 100%;
   padding: 0.75rem 1rem;
-  color: var(--primary-color);
-  background: transparent;
-  border: 1px solid gray;
-  border-radius: 5px;
-  font-family: var(--font-family-monospace);
-  font-size: calc(1.75 * var(--spacing-unit));
-  width: 20rem;
-}
-
-.Auth-Contrainer input::placeholder {
+  padding-top: 1.25rem;
   color: var(--text-color);
+  background: var(--accent-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-medium);
+  font-family: var(--font-family-monospace);
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-.Auth-Contrainer label {
-  position: absolute;
-  top: 0.1rem;
-  left: 1rem;
-  padding: 0rem 0.5rem;
-  border-radius: 10px;
-  color: white;
-  background: black;
-  font-size: calc(1.5 * var(--spacing-unit));
-  visibility: hidden;
+.auth-container input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(224, 55, 51, 0.2);
+  outline: none;
 }
 
-.Auth-Contrainer input:focus + label,
-.Auth-Contrainer input:not(:placeholder-shown) + label {
-  visibility: visible;
-}
-
-.Auth-Contrainer input:focus::placeholder {
+.auth-container input::placeholder {
   color: transparent;
+}
+
+.auth-container label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: var(--text-sub-color);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  padding: 0;
+}
+
+.auth-container input:focus + label,
+.auth-container input:not(:placeholder-shown) + label {
+  top: 0.25rem;
+  transform: translateY(0);
+  font-size: 0.75rem;
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .toggle-icon {
   position: absolute;
   right: 1rem;
-  top: 2rem;
+  top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 1.2rem;
-  color: gray;
+  color: var(--text-sub-color);
   transition: color 0.2s ease;
+  z-index: 10;
 }
 
 .toggle-icon:hover {
   color: var(--primary-color);
 }
 
-.Auth-Contrainer input:focus ~ .toggle-icon {
-  color: white;
-}
-
-/* .Auth-Contrainer p {
+/* .auth-container p {
   width: 300px;
   cursor: pointer;
   font-family: var(--font-family-primary);
@@ -202,41 +214,49 @@
   margin: 0;
 } */
 
-.Auth-Contrainer .error {
+.auth-container .error {
   color: var(--error);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
 }
 
 .account-text {
-  text-decoration: none !important;
   font-family: var(--font-family-primary);
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--text-sub-color);
-  padding: 0.5rem;
-  margin: 0;
+  margin-top: 1rem;
 }
 
 .account-text > span {
-  border: none;
-  background: transparent;
   color: var(--primary-color);
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: 1px underline dashed var(--primary-color);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--primary-color);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: 0.25rem;
 }
 
 .account-text > span:hover {
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  color: var(--secondary-color);
-  font-size: 1rem;
-  font-weight: bold;
-  text-decoration: 1px underline dashed var(--secondary-color);
+  color: var(--hover-color);
+  border-bottom-color: var(--hover-color);
 }
 
 @media (max-width: 768px) {
-  .Auth-Contrainer {
+  .auth-container {
     height: calc(100vh - 2.5rem);
+  }
+
+  .sign-in,
+  .sign-up {
+    padding: calc(2 * var(--spacing-unit));
+    width: 90%;
+  }
+
+  .form-in > div,
+  .form-up > div,
+  .auth-container input {
+    width: 100%;
   }
 }

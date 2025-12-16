@@ -116,7 +116,7 @@ const TaskList = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_URL}/api/task/all-tasks`);
+      const response = await axios.get(`${API_URL}/api/tasks/`);
       const data = response.data;
       if (data.length === 0) {
         setTasks([]);
@@ -144,9 +144,7 @@ const TaskList = () => {
       return;
     }
     try {
-      const response = await axios.delete(
-        `${API_URL}/api/task/delete-task/${id}`
-      );
+      const response = await axios.delete(`${API_URL}/api/tasks/${id}`);
       if (response.status != 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -260,38 +258,41 @@ const TaskList = () => {
 
               <p className="tl-task-description">{task.description}</p>
 
-              <div className="tl-task-footer">
-                <span className="tl-task-due-date">
-                  Due:{" "}
-                  {task.dueDate
-                    ? new Date(task.dueDate).toLocaleDateString()
-                    : "N/A"}{" "}
-                  {task.time ? task.time : "N/A"}
-                </span>
-                <span
-                  className={`tl-task-status tl-status tl-status-${task.status
-                    .toLowerCase()
-                    .replace(/ /g, "-")}`}
-                >
-                  {task.status}
-                </span>
-              </div>
+              <div className="tl-card-footer-group">
+                <div className="tl-task-info-row">
+                  <span className="tl-task-due-date">
+                    Due:{" "}
+                    {task.dueDate
+                      ? new Date(task.dueDate).toLocaleDateString()
+                      : "N/A"}{" "}
+                    {task.time ? task.time : ""}
+                  </span>
+                  <span
+                    className={`tl-task-status tl-status tl-status-${task.status
+                      .toLowerCase()
+                      .replace(/ /g, "-")}`}
+                  >
+                    {task.status}
+                  </span>
+                </div>
 
-              <div className="tl-task-actions-overlay">
-                <button
-                  onClick={() => handleEditClick(task)}
-                  className="btn btn-primary tl-tasks-actions"
-                  aria-label="Edit Task"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => deleteTask(task._id)}
-                  className="btn btn-secondary tl-tasks-actions"
-                  aria-label="Delete Task"
-                >
-                  Delete
-                </button>
+                {/* Buttons are now separate and do not overlap content */}
+                <div className="tl-card-actions">
+                  <button
+                    onClick={() => handleEditClick(task)}
+                    className="btn btn-primary tl-action-btn"
+                    aria-label="Edit Task"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => deleteTask(task._id)}
+                    className="btn btn-secondary tl-action-btn"
+                    aria-label="Delete Task"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}

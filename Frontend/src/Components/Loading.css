@@ -1,0 +1,59 @@
+.loading-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  z-index: 9999;
+}
+
+.loading-logo {
+  font-family: var(--font-family-vibes);
+  font-size: var(--font-size-h1, 3rem);
+  font-weight: 700;
+  color: var(--primary-color, #e03733);
+  text-shadow: 0 0 15px rgba(var(--primary-color-rgb, 224, 55, 51), 0.5);
+  display: flex;
+  gap: 0;
+  user-select: none;
+}
+
+.logo-char {
+  display: inline-block;
+  animation: wave 1.5s infinite ease-in-out;
+  animation-delay: var(--animation-delay, 0s);
+  transform-origin: bottom;
+}
+
+.loading-message {
+  color: var(--text-color);
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  animation: fade-in 2s infinite alternate;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(1);
+    color: var(--primary-color);
+  }
+  50% {
+    transform: scaleY(1.5);
+    color: var(--secondary-color);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}

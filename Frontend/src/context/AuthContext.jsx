@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import Loading from "../Components/Loading";
 
 const AuthContext = createContext();
 
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/api/admin/session`);
+        const res = await axios.get(`${BASE_URL}/api/admins/session`);
 
         const email = localStorage.getItem("userEmail") || res.data.email;
 
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ email, password }) => {
     try {
-      const res = await axios.post(`${BASE_URL}/api/admin/login`, {
+      const res = await axios.post(`${BASE_URL}/api/admins/login`, {
         email,
         password,
       });
@@ -63,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post(`${BASE_URL}/api/admin/logout`); // Server clears the cookie
+      await axios.post(`${BASE_URL}/api/admins/logout`);
     } catch (error) {
       console.error("Error during server logout", error);
     } finally {
@@ -74,7 +75,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   if (isLoading) {
-    return <div>Loading session...</div>;
+    return <Loading />;
   }
 
   return (

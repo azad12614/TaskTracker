@@ -29,11 +29,10 @@
   align-items: center;
   gap: calc(0.5 * var(--spacing-unit));
   text-decoration: none;
-  color: inherit;
 }
 
 .logo img {
-  width: 1.75rem;
+  width: 2rem;
   margin-bottom: -0.25rem;
   padding-right: calc(0.25 * var(--spacing-unit));
   margin-left: calc(var(--spacing-unit) * 1);
@@ -41,10 +40,11 @@
 
 .logo-text {
   color: var(--primary-color);
-  font-weight: 800;
-  font-family: var(--font-family-monospace);
-  letter-spacing: var(--letter-spacing-tight);
-  padding-top: 0.2rem;
+  font-size: larger;
+  font-weight: bolder;
+  font-family: var(--font-family-vibes) !important;
+  letter-spacing: var(--letter-spacing-wide);
+  padding-top: 0.7rem;
 }
 
 .manu {
@@ -82,7 +82,7 @@
 .navbar-links li a:hover,
 .navbar-links li button:hover {
   color: var(--hover-color);
-  background-color: var(--accent-background);
+  background-color: var(--accent-background-color);
 }
 
 #logbtn {
@@ -92,7 +92,7 @@
 .theme-toggle-button {
   font-size: var(--font-size-h5);
   padding: calc(0.5 * var(--spacing-unit));
-  background: var(--accent-background);
+  background: var(--accent-background-color);
   border: none;
   border-radius: 50%;
   color: var(--text-color);
@@ -154,7 +154,7 @@
     background: var(--background-color);
     flex-direction: column;
     gap: var(--spacing-unit);
-    padding: var(--padding-large);
+    padding: calc(3 * var(--spacing-unit));
     transform: translateY(-100%);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px var(--shadow-color);

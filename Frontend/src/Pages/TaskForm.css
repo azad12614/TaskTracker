@@ -1,10 +1,21 @@
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .tf-wrapper {
-  min-height: 100vh;
+  min-height: calc(100vh - 3rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  justify-content: center;
+  padding: 6rem var(--spacing-unit);
   box-sizing: border-box;
   background-color: var(--background-color);
   color: var(--text-color);
@@ -13,65 +24,79 @@
 
 .tf-form-section {
   width: 100%;
-  max-width: 700px;
-  padding: calc(3 * var(--spacing-unit));
+  max-width: 600px;
+  padding: calc(4 * var(--spacing-unit));
   margin-inline: auto;
   background-color: var(--sub-background-color);
   border-radius: var(--border-radius-large);
-  box-shadow: 0 6px 20px var(--shadow-color);
+  box-shadow: 0 10px 30px var(--shadow-color);
   border: var(--border-width) solid var(--border-color);
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+.tf-header {
+  text-align: center;
+  margin-bottom: calc(3 * var(--spacing-unit));
 }
 
 .tf-headline {
-  text-align: center;
   font-family: var(--font-family-headings);
-  font-size: var(--font-size-h2);
+  font-size: var(--font-size-h3);
   color: var(--primary-color);
-  margin-bottom: calc(4 * var(--spacing-unit));
+  margin-bottom: var(--spacing-unit);
+  margin-top: 0;
+}
+
+.tf-subtext {
+  color: var(--text-sub-color);
+  font-size: var(--font-size-base);
+  margin: 0;
 }
 
 .tf-task-form {
   display: flex;
   flex-direction: column;
-  gap: calc(2 * var(--spacing-unit));
+  gap: calc(2.5 * var(--spacing-unit));
 }
 
 .tf-form-group {
   display: flex;
   flex-direction: column;
+  gap: calc(0.5 * var(--spacing-unit));
 }
 
 .tf-form-row {
   display: flex;
   gap: calc(2 * var(--spacing-unit));
-  & > .tf-form-group {
-    flex: 1;
-  }
+}
+
+.tf-form-row > .tf-form-group {
+  flex: 1;
 }
 
 .tf-label {
-  font-size: calc(0.9 * var(--font-size-base));
+  font-size: var(--font-size-base);
   color: var(--text-sub-color);
-  margin-bottom: 0.5rem;
-  font-weight: 700;
+  font-weight: 500;
+  margin-left: 2px;
 }
 
 .tf-label span {
   color: var(--primary-color);
-  font-weight: 900;
+  margin-left: 4px;
 }
 
 .tf-input,
 .tf-textarea,
 .tf-select {
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem;
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-medium);
   background-color: var(--accent-background-color);
   color: var(--text-color);
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-base);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
   width: 100%;
 }
 
@@ -80,74 +105,103 @@
 .tf-select:focus {
   border-color: var(--primary-color);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.3);
+  box-shadow: 0 0 0 2px rgba(224, 55, 51, 0.2);
+  background-color: var(--sub-background-color);
+}
+
+.tf-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.tf-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }
 
 .tf-textarea {
   resize: vertical;
+  min-height: 100px;
 }
 
 .tf-actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--spacing-unit);
-  margin-top: calc(2 * var(--spacing-unit));
-  max-width: max(50%, 600px);
+  width: 300px;
+  gap: calc(1.5 * var(--spacing-unit));
+  margin-top: calc(1 * var(--spacing-unit));
   margin-inline: auto;
+}
+
+.tf-btn-submit {
+  min-width: 140px;
 }
 
 .tf-btn-submit:disabled {
   background-color: var(--border-color);
+  border-color: var(--border-color);
   cursor: not-allowed;
   opacity: 0.7;
+  transform: none;
+  box-shadow: none;
 }
 
-/* Toast Notification Styles */
 .tf-toast-notification {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: 5rem;
+  right: 2rem;
   padding: 1rem 1.5rem;
   border-radius: var(--border-radius-medium);
   color: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateX(100%);
   z-index: 1001;
-  transition: opacity 0.3s, transform 0.3s;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .tf-toast-notification[data-show="true"] {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .tf-toast-notification[data-type="success"] {
   background-color: var(--success);
+  border-left: 5px solid #2e7d32;
 }
 
 .tf-toast-notification[data-type="error"] {
-  background-color: var(--primary-color);
+  background-color: var(--error);
+  border-left: 5px solid #b71c1c;
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
+  .tf-wrapper {
+    padding-top: 5rem;
+  }
+
   .tf-form-section {
-    padding: calc(2 * var(--spacing-unit));
-    margin: 0 calc(2 * var(--spacing-unit));
+    padding: calc(2.5 * var(--spacing-unit));
+    margin: 0 var(--spacing-unit);
+    width: 95%;
   }
 
   .tf-form-row {
     flex-direction: column;
-    gap: var(--spacing-unit);
+    gap: calc(2 * var(--spacing-unit));
   }
 
   .tf-actions {
-    justify-content: space-between;
-    width: 90vw;
+    flex-direction: column-reverse;
+    width: 100%;
   }
 
   .tf-actions > button {
-    width: 50%;
+    width: 100%;
   }
 }

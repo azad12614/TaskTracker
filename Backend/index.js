@@ -19,8 +19,8 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/admin", authRoutes);
-app.use("/api/task", taskRoutes);
+app.use("/api/admins", authRoutes);
+app.use("/api/tasks", taskRoutes);
 
 connectDB().then(() => {
   app.listen(process.env.PORT, () => {

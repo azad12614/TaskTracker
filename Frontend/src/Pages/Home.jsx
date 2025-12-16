@@ -17,7 +17,7 @@ const Home = () => {
             intuitive, and effective.
           </p>
           <div className="hero-buttons">
-            <Link to="/dashboard" className="btn btn-primary">
+            <Link to="/your-tasks" className="btn btn-primary">
               Start Managing Tasks
             </Link>
             {!isAuthenticated && (
@@ -35,40 +35,48 @@ const Home = () => {
             <div className="feature-icon">✅</div>
             <h3 className="feature-card-title">Effortless Task Creation</h3>
             <p className="feature-card-description">
-              Quickly add tasks with all essential details: title, description,
-              due date, status, and priority.
+              Quickly add tasks using a comprehensive schema with 7 properties:
+              status, priority, severity, and more.
             </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">📋</div>
-            <h3 className="feature-card-title">Intuitive Task Management</h3>
+            <h3 className="feature-card-title">Full CRUD Functionality</h3>
             <p className="feature-card-description">
-              View, edit, and delete tasks with a user-friendly interface. Keep
-              your list clean and up-to-date.
+              Easily manage your workflow with simple view, edit, and secure
+              deletion options for all tasks.
             </p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">🎯</div>
-            <h3 className="feature-card-title">Stay Organized & Focused</h3>
+            <div className="feature-icon">🕰️</div>
+            <h3 className="feature-card-title">Time-Aware Validation</h3>
             <p className="feature-card-description">
-              Prioritize your workload with 'Low', 'Medium', and 'High' settings
-              to tackle what's most important.
+              Tasks cannot be created or edited for a date or time that has
+              already passed, helping you focus forward.
             </p>
           </div>
           <div className="feature-card">
             <div className="feature-icon">🧠</div>
-            <h3 className="feature-card-title">Smart Task Sorting</h3>
+            <h3 className="feature-card-title">Dynamic Sorting Engine</h3>
             <p className="feature-card-description">
-              Tasks are automatically sorted by status, priority, and due date —
-              so you always see the most urgent and important items first.
+              Tasks are automatically sorted by priority, severity, status, and
+              due date to ensure you see the most critical items first.
             </p>
           </div>
           <div className="feature-card">
-            <div className="feature-icon">📈</div>
-            <h3 className="feature-card-title">Track Your Progress</h3>
+            <div className="feature-icon">🔒</div>
+            <h3 className="feature-card-title">JWT Secure Authentication</h3>
             <p className="feature-card-description">
-              Mark tasks as 'Pending' or 'Completed' to visualize your
-              achievements and maintain momentum.
+              User sessions are secured using JWT and HttpOnly cookies,
+              providing a robust and safe experience against XSS attacks.
+            </p>
+          </div>
+          <div className="feature-card">
+            <div className="feature-icon">⚙️</div>
+            <h3 className="feature-card-title">Modern MERN Stack</h3>
+            <p className="feature-card-description">
+              Built on MongoDB, Express, React, and Node.js for high
+              performance, utilizing a modern, scalable architecture.
             </p>
           </div>
         </div>

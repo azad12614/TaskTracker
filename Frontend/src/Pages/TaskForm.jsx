@@ -53,14 +53,23 @@ const TaskForm = () => {
     const dateInput = document.getElementById("dueDate");
     if (!dateInput) throw new Error("Date input not found");
 
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const dd = String(today.getDate()).padStart(2, "0");
+    if (!isEditing) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const todayStr = `${yyyy}-${mm}-${dd}`;
 
-    const todayStr = `${yyyy}-${mm}-${dd}`;
+      dateInput.setAttribute("min", todayStr);
+    } else {
+      const today = new Date(taskToEdit.dueDate);
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      const todayStr = `${yyyy}-${mm}-${dd}`;
 
-    dateInput.setAttribute("min", todayStr);
+      dateInput.setAttribute("min", todayStr);
+    }
   }, [navigate, taskToEdit]);
 
   const showToast = (message, type = "success") => {
@@ -91,14 +100,11 @@ const TaskForm = () => {
 
     try {
       if (isEditing) {
-        await axios.put(
-          `${API_URL}/api/task/edit-task/${taskToEdit._id}`,
-          payload
-        );
+        await axios.put(`${API_URL}/api/tasks/${taskToEdit._id}`, payload);
         showToast("Task updated successfully!", "success");
         setFormData(initialFormData);
       } else {
-        await axios.post(`${API_URL}/api/task/add-task`, payload);
+        await axios.post(`${API_URL}/api/tasks/task`, payload);
         showToast("Task created successfully!", "success");
         setFormData(initialFormData);
       }
@@ -126,7 +132,14 @@ const TaskForm = () => {
       </div>
 
       <div className="tf-form-section">
-        <h2 className="tf-headline">{headline}</h2>
+        <div className="tf-header">
+          <h2 className="tf-headline">{headline}</h2>
+          <p className="tf-subtext">
+            {isEditing
+              ? "Update the details of your task below."
+              : "Fill in the details to create a new task."}
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="tf-task-form">
           {/* Title */}
@@ -219,7 +232,7 @@ const TaskForm = () => {
 
             <div className="tf-form-group">
               <label htmlFor="time" className="tf-label">
-                Time
+                Time <span>*</span>
               </label>
               <input
                 type="time"

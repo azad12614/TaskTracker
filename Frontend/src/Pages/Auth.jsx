@@ -40,11 +40,17 @@ const Auth = () => {
     e.preventDefault();
     setError("");
     try {
-      await axios.post(`${BASE_URL}/api/admin/register`, formUp);
+      await axios.post(`${BASE_URL}/api/admins/register`, formUp);
       alert("✅ Registration successful! Now Please Login!");
       setShow(true);
+      setFormUp({
+        username: "",
+        email: "",
+        password: "",
+        cpassword: "",
+      });
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
+      setError(err.response?.data?.message || "Registration failed.");
     }
   };
 
@@ -62,37 +68,37 @@ const Auth = () => {
   };
 
   return (
-    <div className="Auth-Contrainer">
+    <div className="auth-container">
       <div
-        className={show ? "RevealLayer reveal-in" : "RevealLayer reveal-up"}
+        className={show ? "reveal-layer reveal-in" : "reveal-layer reveal-up"}
       />
-      <div className={show ? "Sign-in Form Show" : "Sign-in Form"}>
+      <div className={show ? "sign-in form show" : "sign-in form"}>
         <h1>Welcome Back</h1>
         <p>Please Sign-in to continue!</p>
-        <form className="Form-in" onSubmit={handleSubmitIn}>
+        <form className="form-in" onSubmit={handleSubmitIn}>
           <div>
             <input
               type="email"
               name="email"
-              id="emailIn"
+              id="email-in"
               placeholder="Email"
               value={formIn.email}
               onChange={handleChangeIn}
               required
             />
-            <label htmlFor="emailIn">Email</label>
+            <label htmlFor="email-in">Email</label>
           </div>
           <div>
             <input
               type={showPassword == "1" ? "text" : "password"}
               name="password"
-              id="passwordIn"
+              id="password-in"
               placeholder="Password"
               value={formIn.password}
               onChange={handleChangeIn}
               required
             />
-            <label htmlFor="passwordIn">Password</label>
+            <label htmlFor="password-in">Password</label>
             <span
               className="toggle-icon"
               onClick={() => {
@@ -105,7 +111,7 @@ const Auth = () => {
           <p className="error">{error}</p>
           {/* <p>Forget your Password?</p> */}
           <button type="submit" className="btn btn-primary">
-            Signin
+            SignIn
           </button>
           <p className="account-text">
             Don't have an account?{" "}
@@ -120,10 +126,10 @@ const Auth = () => {
           </p>
         </form>
       </div>
-      <div className={show ? "Sign-up Form" : "Sign-up Form Show"}>
+      <div className={show ? "sign-up form" : "sign-up form show"}>
         <h1>Create Account</h1>
         <p>Please sign-up to continue!</p>
-        <form className="Form-up" onSubmit={handleSubmitUp}>
+        <form className="form-up" onSubmit={handleSubmitUp}>
           <div>
             <input
               type="text"
@@ -140,26 +146,25 @@ const Auth = () => {
             <input
               type="email"
               name="email"
-              id="emailUp"
+              id="email-up"
               placeholder="Email"
               value={formUp.email}
               onChange={handleChangeUp}
               required
             />
-            <label htmlFor="emailUp">Email</label>
+            <label htmlFor="email-up">Email</label>
           </div>
           <div>
             <input
               type={showPassword == "2" ? "text" : "password"}
               name="password"
-              id="passwordUp"
+              id="password-up"
               placeholder="Password"
               value={formUp.password}
               onChange={handleChangeUp}
               required
             />
-            <label htmlFor="passwordUp">Password</label>
-
+            <label htmlFor="password-up">Password</label>
             <span
               className="toggle-icon"
               onClick={() => {
@@ -180,7 +185,6 @@ const Auth = () => {
               required
             />
             <label htmlFor="cpassword">Confirm Password</label>
-
             <span
               className="toggle-icon"
               onClick={() => {
@@ -192,7 +196,7 @@ const Auth = () => {
           </div>
           <p className="error">{error}</p>
           <button type="submit" className="btn btn-primary">
-            Signup
+            Sign Up
           </button>
           <p className="account-text">
             Already have an account?{" "}
