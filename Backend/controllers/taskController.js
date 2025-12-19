@@ -32,7 +32,7 @@ const validateDateTime = (dueDate, time) => {
 };
 
 const addTask = async (req, res) => {
-  const { title, description, dueDate, time, status, priority, severity } =
+  const { title, description, priority, severity, dueDate, time, status } =
     req.body;
   const userEmail = req.user.email;
 
@@ -45,11 +45,11 @@ const addTask = async (req, res) => {
     const newTask = new Task({
       title,
       description,
+      priority,
+      severity,
       dueDate,
       time,
       status,
-      priority,
-      severity,
       userEmail,
     });
 
@@ -75,7 +75,7 @@ const addTask = async (req, res) => {
 
 const editTask = async (req, res) => {
   const { id } = req.params;
-  const { title, description, dueDate, time, status, priority, severity } =
+  const { title, description, priority, severity, dueDate, time, status } =
     req.body;
   const userEmail = req.user.email;
 
@@ -90,11 +90,11 @@ const editTask = async (req, res) => {
     const updateFields = {
       title,
       description,
+      priority,
+      severity,
       dueDate,
       time,
       status,
-      priority,
-      severity,
     };
 
     const updatedTask = await Task.findOneAndUpdate(
@@ -158,19 +158,28 @@ const deleteTask = async (req, res) => {
 const allTasks = async (req, res) => {
   const userEmail = req.user.email;
 
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+  const skip = (page - 1) * limit;
+
   try {
-    const tasks = await Task.find({ userEmail }).sort({ createdAt: -1 });
+    const totalTasks = await Task.countDocuments({ userEmail });
 
-    if (!tasks || tasks.length === 0) {
-      return res.status(200).json([]);
-    }
+    const tasks = await Task.find({ userEmail })
+      .sort({ dueDate: -1 })
+      .skip(skip)
+      .limit(limit);
 
-    res.status(200).json(tasks);
-  } catch (error) {
-    console.error("❌ Error fetching tasks:", error);
-    res.status(500).json({
-      message: "An error occurred while fetching tasks.",
+    res.status(200).json({
+      tasks,
+      totalPages: Math.ceil(totalTasks / limit),
+      currentPage: page,
     });
+  } catch (error) {
+    console.error("❌ Fetch tasks error:", error);
+    res
+      .status(500)
+      .json({ message: "An unexpected error occurred while fetching tasks." });
   }
 };
 

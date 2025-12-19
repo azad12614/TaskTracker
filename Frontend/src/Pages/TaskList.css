@@ -235,6 +235,59 @@
   color: #dc3545;
 }
 
+/* Pagination Styling */
+.tl-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+.tl-pagination-btn {
+  padding: 0.5rem 1rem !important;
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+}
+
+.tl-pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.tl-page-numbers {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tl-page-num {
+  background: var(--sub-background-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.tl-page-num:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.tl-page-num.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
 @media (max-width: 768px) {
   .tl-list-controls {
     justify-content: center;

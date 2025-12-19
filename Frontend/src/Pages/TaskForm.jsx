@@ -19,11 +19,11 @@ const TaskForm = () => {
   const initialFormData = {
     title: "",
     description: "",
+    priority: "Medium",
+    severity: "Major",
     dueDate: "",
     time: "",
     status: "To Do",
-    priority: "Medium",
-    severity: "Major",
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -39,11 +39,11 @@ const TaskForm = () => {
       setFormData({
         title: taskToEdit.title || "",
         description: taskToEdit.description || "",
+        priority: taskToEdit.priority || "Medium",
+        severity: taskToEdit.severity || "Major",
         dueDate: taskToEdit.dueDate,
         time: taskToEdit.time,
         status: taskToEdit.status || "To Do",
-        priority: taskToEdit.priority || "Medium",
-        severity: taskToEdit.severity || "Major",
       });
     } else {
       setFormData(initialFormData);
@@ -59,7 +59,6 @@ const TaskForm = () => {
       const mm = String(today.getMonth() + 1).padStart(2, "0");
       const dd = String(today.getDate()).padStart(2, "0");
       const todayStr = `${yyyy}-${mm}-${dd}`;
-
       dateInput.setAttribute("min", todayStr);
     } else {
       const today = new Date(taskToEdit.dueDate);
@@ -67,7 +66,6 @@ const TaskForm = () => {
       const mm = String(today.getMonth() + 1).padStart(2, "0");
       const dd = String(today.getDate()).padStart(2, "0");
       const todayStr = `${yyyy}-${mm}-${dd}`;
-
       dateInput.setAttribute("min", todayStr);
     }
   }, [navigate, taskToEdit]);

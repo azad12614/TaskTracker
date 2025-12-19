@@ -6,19 +6,22 @@ import "./TaskList.css";
 
 const TaskList = () => {
   const navigate = useNavigate();
+  const { userEmail } = useAuth();
 
   const API_URL =
     import.meta.env.MODE === "development"
       ? "http://localhost:5000"
       : import.meta.env.VITE_API_BASE_URL;
 
-  const { userEmail } = useAuth();
-
   const [tasks, setTasks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortBy, setSortBy] = useState("status");
   const [sortOrder, setSortOrder] = useState("asc");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 6;
 
   const createDateTime = (dueDate, time) => {
     const fullDateTimeString = `${dueDate}T${time || "00:00"}:00`;
@@ -112,31 +115,48 @@ const TaskList = () => {
     return sorted;
   };
 
-  const fetchTasks = async (retries = 2) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await axios.get(`${API_URL}/api/tasks/`);
-      const data = response.data;
-      if (data.length === 0) {
-        setTasks([]);
-      } else {
-        setTasks(sortTasks(data, sortBy, sortOrder));
+  useEffect(() => {
+    const fetchTasks = async (retries = 2) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const res = await axios.get(
+          `${API_URL}/api/tasks?page=${currentPage}&limit=${limit}`,
+          { withCredentials: true }
+        );
+
+        // Expecting { tasks: [], totalPages: X, currentPage: Y } from backend
+        const data = res.data.tasks;
+        const pages = res.data.totalPages;
+
+        if (data.length === 0) {
+          setTasks([]);
+        } else {
+          setTasks(sortTasks(data, sortBy, sortOrder));
+        }
+        setTotalPages(pages);
+      } catch (err) {
+        if (
+          retries > 0 &&
+          err.code !== "ECONNABORTED" &&
+          err.response?.status !== 401
+        ) {
+          setTimeout(() => fetchTasks(retries - 1), 60000);
+        } else {
+          const errorMsg =
+            err.response?.data?.message || "Failed to load tasks.";
+          setError(errorMsg);
+        }
+      } finally {
+        setIsLoading(false);
       }
-    } catch (err) {
-      if (
-        retries > 0 &&
-        err.code !== "ECONNABORTED" &&
-        err.response?.status !== 401
-      ) {
-        setTimeout(() => fetchTasks(retries - 1), 60000);
-      } else {
-        const errorMsg = err.response?.data?.message || "Failed to load tasks.";
-        setError(errorMsg);
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    };
+
+    fetchTasks();
+  }, [userEmail, sortBy, sortOrder, currentPage]);
+
+  const handleEditClick = (task) => {
+    navigate(`/your-task`, { state: { taskToEdit: task } });
   };
 
   const deleteTask = async (id) => {
@@ -157,10 +177,6 @@ const TaskList = () => {
     }
   };
 
-  const handleEditClick = (task) => {
-    navigate(`/your-task`, { state: { taskToEdit: task } });
-  };
-
   const handleSortChange = (e) => {
     const { name, value } = e.target;
 
@@ -170,10 +186,6 @@ const TaskList = () => {
       setSortOrder(value);
     }
   };
-
-  useEffect(() => {
-    fetchTasks();
-  }, [userEmail, sortBy, sortOrder]);
 
   return (
     <div className="tl-wrapper">
@@ -296,6 +308,40 @@ const TaskList = () => {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {!isLoading && totalPages > 1 && (
+        <div className="tl-pagination">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((prev) => prev - 1)}
+            className="btn btn-secondary tl-pagination-btn"
+          >
+            Previous
+          </button>
+
+          <div className="tl-page-numbers">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`tl-page-num ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="btn btn-secondary tl-pagination-btn"
+          >
+            Next
+          </button>
         </div>
       )}
     </div>

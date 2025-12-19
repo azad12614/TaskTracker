@@ -118,3 +118,30 @@ Consider adding:
 Solo full-stack developer showcasing practical MERN capabilities. Use the app, explore the code, and feel free to connect!
 
 ---
+
+## Current Features
+
+Full CRUD Operations (Create, Read, Update, and Delete)
+JWT-Based Authentication
+HttpOnly Cookie Session Management
+Comprehensive Task Schema (Title, Description, Due Date, Time, Status, Priority, Severity)
+Dynamic Sorting Engine
+Time-Aware Task Validation
+Secure User Registration with Password Policy
+Responsive Dashboard UI
+Automated Session Persistence
+Animated Session Loading Screen
+Pagination (Implementation Started)
+
+## Feature Suggestions
+
+Kanban Board View
+Real-Time Search & Multi-filter Navigation
+Drag-and-Drop Task Reordering
+Dark & Light Mode Toggle
+Subtasks & Checklists
+Reminders & Web Push Notifications
+Analytics & Productivity Dashboard
+File Attachments & Cloud Storage Integration
+Social Authentication (Google/GitHub OAuth)
+Automated Testing Suite (Jest & Cypress)
