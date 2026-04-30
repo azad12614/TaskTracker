@@ -21,6 +21,10 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "Server is running" });
+});
+
 app.use("/api/admins", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
