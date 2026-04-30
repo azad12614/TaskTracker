@@ -1,0 +1,121 @@
+.cm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: cm-fade-in 0.15s ease;
+}
+
+@keyframes cm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.cm-box {
+  background: var(--sub-background-color);
+  border: 1px solid #3a3a3a;
+  border-top: 3px solid var(--primary-color);
+  border-radius: var(--border-radius-large);
+  padding: 2rem 2rem 1.5rem;
+  min-width: 320px;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
+  animation: cm-slide-up 0.18s ease;
+}
+
+@keyframes cm-slide-up {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.cm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+}
+
+.cm-icon--danger {
+  background: rgba(192, 64, 64, 0.18);
+  color: #c04040;
+  border: 1px solid rgba(192, 64, 64, 0.35);
+}
+
+.cm-icon--success {
+  background: rgba(76, 175, 80, 0.18);
+  color: #4caf50;
+  border: 1px solid rgba(76, 175, 80, 0.35);
+}
+
+.cm-title {
+  font-family: var(--font-family-headings);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin: 0 0 0.5rem;
+}
+
+.cm-message {
+  font-size: 0.95rem;
+  color: var(--text-sub-color);
+  text-align: center;
+  margin: 0 0 1.5rem;
+  line-height: 1.5;
+}
+
+.cm-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.cm-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--border-radius-medium);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+}
+
+.cm-btn-cancel {
+  background: transparent;
+  color: var(--text-sub-color);
+  border-color: #3a3a3a;
+}
+.cm-btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-color);
+  border-color: #555;
+}
+
+.cm-btn-danger {
+  background: rgba(192, 64, 64, 0.22);
+  color: #e07070;
+  border-color: rgba(192, 64, 64, 0.45);
+}
+.cm-btn-danger:hover {
+  background: rgba(192, 64, 64, 0.38);
+  color: #f09090;
+  border-color: rgba(192, 64, 64, 0.65);
+}
+
+.cm-btn-ok {
+  background: rgba(224, 55, 51, 0.18);
+  color: var(--secondary-color);
+  border-color: rgba(224, 55, 51, 0.4);
+}
+.cm-btn-ok:hover {
+  background: rgba(224, 55, 51, 0.30);
+  border-color: rgba(224, 55, 51, 0.6);
+}
