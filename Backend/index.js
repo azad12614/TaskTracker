@@ -13,7 +13,7 @@ app.use(helmet());
 
 app.use(
   cors({
-    origin: [process.env.VITE_CLIENT_BASE_URL],
+    origin: process.env.VITE_CLIENT_BASE_URL,
     credentials: true,
   }),
 );
