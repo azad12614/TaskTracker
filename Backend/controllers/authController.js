@@ -1,6 +1,6 @@
-const Admin = require("../models/Admin");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import Admin from "../models/Admin.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
@@ -35,7 +35,7 @@ const loginAdmin = async (req, res) => {
         email: admin.email,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "1d" },
     );
 
     res.cookie("jwt_token", token, {
@@ -138,8 +138,4 @@ const registerAdmin = async (req, res) => {
   }
 };
 
-module.exports = {
-  loginAdmin,
-  logoutAdmin,
-  registerAdmin,
-};
+export { loginAdmin, logoutAdmin, registerAdmin };

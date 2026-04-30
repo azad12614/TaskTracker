@@ -1,19 +1,21 @@
-require("dotenv").config();
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const connectDB = require("./config/db");
+import "dotenv/config";
+import express from "express";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import connectDB from "./config/db.js";
 
-const authRoutes = require("./routes/authRoutes");
-const taskRoutes = require("./routes/taskRoutes");
+import authRoutes from "./routes/authRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
 
 const app = express();
+app.use(helmet());
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://tasktracker12614.onrender.com"],
+    origin: [process.env.VITE_CLIENT_BASE_URL],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());

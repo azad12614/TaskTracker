@@ -1,4 +1,4 @@
-const Task = require("../models/Task");
+import Task from "../models/Task.js";
 
 const validateDateTime = (dueDate, time) => {
   const dateRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
@@ -106,7 +106,7 @@ const editTask = async (req, res) => {
       {
         new: true,
         runValidators: true,
-      }
+      },
     );
 
     if (!updatedTask) {
@@ -183,9 +183,4 @@ const allTasks = async (req, res) => {
   }
 };
 
-module.exports = {
-  addTask,
-  editTask,
-  deleteTask,
-  allTasks,
-};
+export { addTask, editTask, deleteTask, allTasks };
